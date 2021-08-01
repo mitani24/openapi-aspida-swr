@@ -1,8 +1,27 @@
-import Head from 'next/head'
-import Image from 'next/image'
-import styles from '../styles/Home.module.css'
+import Head from "next/head";
+import Image from "next/image";
+import useAspidaSWR from "@aspida/swr";
+import aspida from "@aspida/fetch";
+import api from "../api/$api";
+import styles from "../styles/Home.module.css";
+
+const client = api(
+  aspida(fetch, {
+    baseURL: "https://petstore3.swagger.io/api/v3",
+    throwHttpErrors: true,
+  })
+);
 
 export default function Home() {
+  const { data, error } = useAspidaSWR(client.pet.findByStatus, {
+    query: { status: "sold" },
+  });
+
+  if (error) return <div>failed to load</div>;
+  if (!data) return <div>loading...</div>;
+
+  console.log(data);
+
   return (
     <div className={styles.container}>
       <Head>
@@ -17,39 +36,15 @@ export default function Home() {
         </h1>
 
         <p className={styles.description}>
-          Get started by editing{' '}
+          Get started by editing{" "}
           <code className={styles.code}>pages/index.js</code>
         </p>
 
-        <div className={styles.grid}>
-          <a href="https://nextjs.org/docs" className={styles.card}>
-            <h2>Documentation &rarr;</h2>
-            <p>Find in-depth information about Next.js features and API.</p>
-          </a>
-
-          <a href="https://nextjs.org/learn" className={styles.card}>
-            <h2>Learn &rarr;</h2>
-            <p>Learn about Next.js in an interactive course with quizzes!</p>
-          </a>
-
-          <a
-            href="https://github.com/vercel/next.js/tree/master/examples"
-            className={styles.card}
-          >
-            <h2>Examples &rarr;</h2>
-            <p>Discover and deploy boilerplate example Next.js projects.</p>
-          </a>
-
-          <a
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
-          >
-            <h2>Deploy &rarr;</h2>
-            <p>
-              Instantly deploy your Next.js site to a public URL with Vercel.
-            </p>
-          </a>
-        </div>
+        <ul>
+          {data.map((pet) => (
+            <li key={pet.id}>{pet.name}</li>
+          ))}
+        </ul>
       </main>
 
       <footer className={styles.footer}>
@@ -58,12 +53,12 @@ export default function Home() {
           target="_blank"
           rel="noopener noreferrer"
         >
-          Powered by{' '}
+          Powered by{" "}
           <span className={styles.logo}>
             <Image src="/vercel.svg" alt="Vercel Logo" width={72} height={16} />
           </span>
         </a>
       </footer>
     </div>
-  )
+  );
 }
