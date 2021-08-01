@@ -1,4 +1,8 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# openapi-aspida-swr
+
+[openapi2aspida](https://github.com/aspida/openapi2aspida) で aspida api を生成し、[@aspida/fetch](https://github.com/aspida/aspida/tree/master/packages/aspida-fetch) + [@aspida/swr](https://github.com/aspida/aspida/tree/master/packages/aspida-swr) でデータ取得するテスト
+
+> [SWR(React Hooks)と aspida で型安全に REST API を fetch する - Qiita](https://qiita.com/m_mitsuhide/items/337836c003e3e450884a)
 
 ## Getting Started
 
