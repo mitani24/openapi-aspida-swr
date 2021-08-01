@@ -10,9 +10,12 @@
     "generate:api": "openapi2aspida -i https://petstore3.swagger.io/api/v3/openapi.json"
   },
   "dependencies": {
+    "@aspida/fetch": "^1.7.1",
+    "@aspida/swr": "^1.7.1",
     "next": "11.0.1",
     "react": "17.0.2",
-    "react-dom": "17.0.2"
+    "react-dom": "17.0.2",
+    "swr": "^0.5.6"
   },
   "devDependencies": {
     "@types/react": "17.0.15",
