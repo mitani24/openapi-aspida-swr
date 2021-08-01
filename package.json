@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "generate:api": "openapi2aspida -i https://petstore3.swagger.io/api/v3/openapi.json"
   },
   "dependencies": {
     "next": "11.0.1",
